@@ -25,11 +25,11 @@ package() {
     rm -r $pkgdir/usr/share/turing-smart-screen/.github
     rm $pkgdir/usr/share/turing-smart-screen/.gitignore
 
-    mkdir -p $pkgdir/usr/share/icons/hicolor/scalable/apps/
-    cp "../../turing-smart-screen.svg" "$pkgdir/usr/share/icons/hicolor/scalable/apps/turing-smart-screen.svg"
-    mkdir -p $pkgdir/usr/share/applications/
-    cp "../../SmartTuringScreen.desktop" "$pkgdir/usr/share/applications/SmartTuringScreen.desktop"
+    mkdir -p "$pkgdir/usr/share/icons/hicolor/scalable/apps/"
+    cp "$srcdir/../../turing-smart-screen.svg" "$pkgdir/usr/share/icons/hicolor/scalable/apps/turing-smart-screen.svg"
+    mkdir -p "$pkgdir/usr/share/applications/"
+    cp "$srcdir/../../SmartTuringScreen.desktop" "$pkgdir/usr/share/applications/SmartTuringScreen.desktop"
 
-    mkdir -p $pkgdir/usr/share/turing-smart-screen/res/themes/LandscapeBigLinux
-    cp -r "../../LandscapeBigLinux" "$pkgdir/usr/share/turing-smart-screen/res/themes/"
+    mkdir -p "$pkgdir/usr/share/turing-smart-screen/res/themes/LandscapeBigLinux"
+    cp -r "$srcdir/../../LandscapeBigLinux" "$pkgdir/usr/share/turing-smart-screen/res/themes/"
 }
