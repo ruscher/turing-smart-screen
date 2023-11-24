@@ -19,8 +19,6 @@ package() {
     # Move files to /usr/share/turing-smart-screen
     install -d "${pkgdir}/usr/share"
 
-    cp -r "${srcdir}/turing-smart-screen-python" "${pkgdir}/usr/share/turing-smart-screen"
-    
     mkdir -p "${pkgdir}/usr/share/icons/hicolor/scalable/apps/"
     cp "${pkgdir}/../../../turing-smart-screen.svg" "${pkgdir}/usr/share/icons/hicolor/scalable/apps/turing-smart-screen.svg"
     mkdir -p "${pkgdir}/usr/share/applications/"
@@ -29,8 +27,9 @@ package() {
     mkdir -p "${pkgdir}/usr/share/turing-smart-screen/res/themes/LandscapeBigLinux"
     cp -r "${pkgdir}/../../../LandscapeBigLinux" "${pkgdir}/usr/share/turing-smart-screen/res/themes/"
 
+    mv "${srcdir}/turing-smart-screen-python" "${pkgdir}/usr/share/turing-smart-screen"
+
     rm -r ${pkgdir}/usr/share/turing-smart-screen/.git
     rm -r ${pkgdir}/usr/share/turing-smart-screen/.github
     rm ${pkgdir}/usr/share/turing-smart-screen/.gitignore
-    rm -r ${srcdir}/turing-smart-screen-python
 }
