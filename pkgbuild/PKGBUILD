@@ -13,23 +13,39 @@ url="https://github.com/mathoudebine/turing-smart-screen-python"
 provides=("$pkgname")
 source=("git+${url}.git")
 md5sums=('SKIP')
+if [ -e "${pkgname}.install" ];then
+    install=${pkgname}.install
+elif [ -e "pkgbuild.install" ];then
+    install=pkgbuild.install
+fi
 
 package() {
-    cd "${srcdir}"
-    # Move files to /usr/share/turing-smart-screen
-    install -d "${pkgdir}/usr/share"
+    mkdir -p "${pkgdir}/usr/share/turing-smart-screen/"
+    cp -r "${srcdir}/turing-smart-screen-python/." "${pkgdir}/usr/share/turing-smart-screen/"
+    rm -r "${srcdir}/turing-smart-screen-python/"
+    #rm -r ${pkgdir}/usr/share/turing-smart-screen/.git
+    #rm -r ${pkgdir}/usr/share/turing-smart-screen/.github
+    #rm ${pkgdir}/usr/share/turing-smart-screen/.gitignore
 
-    mkdir -p "${pkgdir}/usr/share/icons/hicolor/scalable/apps/"
-    cp "${pkgdir}/../../../turing-smart-screen.svg" "${pkgdir}/usr/share/icons/hicolor/scalable/apps/turing-smart-screen.svg"
-    mkdir -p "${pkgdir}/usr/share/applications/"
-    cp "${pkgdir}/../../../SmartTuringScreen.desktop" "${pkgdir}/usr/share/applications/SmartTuringScreen.desktop"
+    # Verify default folder
+    if [ -d "${srcdir}/${pkgname}/${pkgname}" ]; then
+        InternalDir="${srcdir}/${pkgname}/${pkgname}"
+    else
+        InternalDir="${srcdir}/${pkgname}"
+    fi
 
-    mkdir -p "${pkgdir}/usr/share/turing-smart-screen/res/themes/LandscapeBigLinux"
-    cp -r "${pkgdir}/../../../LandscapeBigLinux" "${pkgdir}/usr/share/turing-smart-screen/res/themes/"
+    echo $InternalDir
 
-    mv "${srcdir}/turing-smart-screen-python" "${pkgdir}/usr/share/turing-smart-screen"
+    # Copy files
+    if [ -d "${InternalDir}/usr" ]; then
+        cp -r "${InternalDir}/usr" "${pkgdir}/"
+    fi
 
-    rm -r ${pkgdir}/usr/share/turing-smart-screen/.git
-    rm -r ${pkgdir}/usr/share/turing-smart-screen/.github
-    rm ${pkgdir}/usr/share/turing-smart-screen/.gitignore
+    if [ -d "${InternalDir}/etc" ]; then
+        cp -r "${InternalDir}/etc" "${pkgdir}/"
+    fi
+
+    if [ -d "${InternalDir}/opt" ]; then
+        cp -r "${InternalDir}/opt" "${pkgdir}/"
+    fi
 }
