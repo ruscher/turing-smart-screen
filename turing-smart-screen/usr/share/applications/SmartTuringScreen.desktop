@@ -5,3 +5,9 @@ Type=Application
 Terminal=false
 Icon=turing-smart-screen
 Categories=Utility;
+
+Actions=SoftwareRender;
+
+[Desktop Action SoftwareRender]
+Name=Software Render
+Exec=SoftwareRender cd /usr/share/turing-smart-screen/;python configure.py
