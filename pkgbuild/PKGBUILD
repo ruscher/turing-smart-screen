@@ -15,21 +15,21 @@ source=("git+${url}.git")
 md5sums=('SKIP')
 
 package() {
-    cd "$srcdir"
+    cd "${srcdir}"
     # Move files to /usr/share/turing-smart-screen
-    install -d "$pkgdir/usr/share"
+    install -d "${pkgdir}/usr/share"
 
-    mv "$srcdir/turing-smart-screen-python" "$pkgdir/usr/share/turing-smart-screen"
+    mv "${srcdir}/turing-smart-screen-python" "${pkgdir}/usr/share/turing-smart-screen"
 
-    rm -r $pkgdir/usr/share/turing-smart-screen/.git
-    rm -r $pkgdir/usr/share/turing-smart-screen/.github
-    rm $pkgdir/usr/share/turing-smart-screen/.gitignore
+    rm -r ${pkgdir}/usr/share/turing-smart-screen/.git
+    rm -r ${pkgdir}/usr/share/turing-smart-screen/.github
+    rm ${pkgdir}/usr/share/turing-smart-screen/.gitignore
 
-    mkdir -p "$pkgdir/usr/share/icons/hicolor/scalable/apps/"
-    cp "$srcdir/../../turing-smart-screen.svg" "$pkgdir/usr/share/icons/hicolor/scalable/apps/turing-smart-screen.svg"
-    mkdir -p "$pkgdir/usr/share/applications/"
-    cp "$srcdir/../../SmartTuringScreen.desktop" "$pkgdir/usr/share/applications/SmartTuringScreen.desktop"
+    mkdir -p "${pkgdir}/usr/share/icons/hicolor/scalable/apps/"
+    cp "${pkgdir}/../../../turing-smart-screen.svg" "${pkgdir}/usr/share/icons/hicolor/scalable/apps/turing-smart-screen.svg"
+    mkdir -p "${pkgdir}/usr/share/applications/"
+    cp "${pkgdir}/../../../SmartTuringScreen.desktop" "${pkgdir}/usr/share/applications/SmartTuringScreen.desktop"
 
-    mkdir -p "$pkgdir/usr/share/turing-smart-screen/res/themes/LandscapeBigLinux"
-    cp -r "$srcdir/../../LandscapeBigLinux" "$pkgdir/usr/share/turing-smart-screen/res/themes/"
+    mkdir -p "${pkgdir}/usr/share/turing-smart-screen/res/themes/LandscapeBigLinux"
+    cp -r "${pkgdir}/../../../LandscapeBigLinux" "${pkgdir}/usr/share/turing-smart-screen/res/themes/"
 }
