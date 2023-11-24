@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Smart Turing Screen
+Exec=cd /usr/share/turing-smart-screen/;python configure.py
+Type=Application
+Terminal=false
+Icon=turing-smart-screen
+Categories=Utility;
