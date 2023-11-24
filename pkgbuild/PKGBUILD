@@ -1,42 +1,35 @@
 # Maintainer: Barnabé di Kartola <barnabedikartola@gmail.com>
 
-pkgname=biglinux-package-template
-pkgdesc="Package template for biglinux"
-# depends=('')
+pkgname=turing-smart-screen
+pkgdesc="Package turing-smart-screen"
+depends=('python-pip' 'python-pillow' 'python-pyserial' 'python-yaml' 'python-psutil' 'python-babel' 'python-ruamel-yaml' 'python-sv-ttk' 'python-numpy' 'python-gputil' 'python-pyamdgpuinfo')
 # makedepends=('')
 # conflicts=('')
 pkgver=$(date +%y.%m.%d)
 pkgrel=$(date +%H%M)
 arch=('any')
 license=('GPL3')
-url="https://github.com/biglinux/$pkgname"
+url="https://github.com/mathoudebine/turing-smart-screen-python"
 provides=("$pkgname")
 source=("git+${url}.git")
 md5sums=('SKIP')
-if [ -e "${pkgname}.install" ];then
-    install=${pkgname}.install
-elif [ -e "pkgbuild.install" ];then
-    install=pkgbuild.install
-fi
 
 package() {
-    # Verify default folder
-    if [ -d "${srcdir}/${pkgname}/${pkgname}" ]; then
-        InternalDir="${srcdir}/${pkgname}/${pkgname}"
-    else
-        InternalDir="${srcdir}/${pkgname}"
-    fi
+    cd "$srcdir"
+    # Move files to /usr/share/turing-smart-screen
+    install -d "$pkgdir/usr/share"
 
-    # Copy files
-    if [ -d "${InternalDir}/usr" ]; then
-        cp -r "${InternalDir}/usr" "${pkgdir}/"
-    fi
+    mv "$srcdir/turing-smart-screen-python" "$pkgdir/usr/share/turing-smart-screen"
 
-    if [ -d "${InternalDir}/etc" ]; then
-        cp -r "${InternalDir}/etc" "${pkgdir}/"
-    fi
+    rm -r $pkgdir/usr/share/turing-smart-screen/.git
+    rm -r $pkgdir/usr/share/turing-smart-screen/.github
+    rm $pkgdir/usr/share/turing-smart-screen/.gitignore
 
-    if [ -d "${InternalDir}/opt" ]; then
-        cp -r "${InternalDir}/opt" "${pkgdir}/"
-    fi
+    mkdir -p $pkgdir/usr/share/icons/hicolor/scalable/apps/
+    cp "../../turing-smart-screen.svg" "$pkgdir/usr/share/icons/hicolor/scalable/apps/turing-smart-screen.svg"
+    mkdir -p $pkgdir/usr/share/applications/
+    cp "../../SmartTuringScreen.desktop" "$pkgdir/usr/share/applications/SmartTuringScreen.desktop"
+
+    mkdir -p $pkgdir/usr/share/turing-smart-screen/res/themes/LandscapeBigLinux
+    cp -r "../../LandscapeBigLinux" "$pkgdir/usr/share/turing-smart-screen/res/themes/"
 }
