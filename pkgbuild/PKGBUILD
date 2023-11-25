@@ -8,8 +8,10 @@ license=('GPL3')
 url="https://github.com/biglinux/turing-smart-screen"
 urlgit="https://github.com/mathoudebine/turing-smart-screen-python"
 provides=("$pkgname")
-source=("git+${url}.git")
-md5sums=('SKIP')
+source=("git+${url}.git"
+        "git+${url}.git")
+md5sums=('SKIP'
+         'SKIP')
 
 if [ -e "${pkgname}.install" ];then
     install=${pkgname}.install
@@ -30,9 +32,9 @@ package() {
         cp -r "${InternalDir}/usr" "${pkgdir}/"
     fi
 
-    cd "$srcdir"
+    #cd "$srcdir"
 
-    git clone "$urlgit"
+    #git clone "$urlgit"
 
     # Copy files to /usr/share/turing-smart-screen/
     cp -r "${srcdir}/turing-smart-screen-python/." "${pkgdir}/usr/share/turing-smart-screen/"
