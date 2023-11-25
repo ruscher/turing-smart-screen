@@ -1,12 +1,15 @@
 ## arg 1:  the new package version
-#pre_install() {
-	# do something here
-#}
+pre_install() {
+	systemctl stop turing-smart-screen-python.service
+}
 
 ## arg 1:  the new package version
-#post_install() {
-    # do something here
-#}
+post_install() {
+	sed -i 's|WorkingDirectory=.*|WorkingDirectory=/usr/share/turing-smart-screen/|' /usr/lib/systemd/system/turing-smart-screen-python.service
+    sleep 2  # Aguarde 2 segundos para garantir que o systemd tenha tempo de reconhecer a unidade
+    systemctl enable --now turing-smart-screen-python.service
+	systemctl --global enable turing-smart-screen-python.service
+}
 
 ## arg 2:  the old package version
 #pre_upgrade() {
@@ -14,17 +17,16 @@
 #}
 
 ## arg 2:  the old package version
-#post_upgrade() {
-	#post_install
-#}
+post_upgrade() {
+	post_install
+}
 
 ## arg 1:  the old package version
-#pre_remove() {
-	# do something here
-#}
+pre_remove() {
+	systemctl --global disable turing-smart-screen-python.service
+}
 
 ## arg 1:  the old package version
 #post_remove() {
 	# do something here
 #}
- 
