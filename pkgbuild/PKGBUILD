@@ -33,7 +33,6 @@ package() {
     fi
 
     # Copy files to /usr/share/turing-smart-screen/
-    rm -r "${srcdir}/turing-smart-screen-python/.git*"
     cp -r "${srcdir}/turing-smart-screen-python/." "${pkgdir}/usr/share/turing-smart-screen/"
 
     # Create directories
