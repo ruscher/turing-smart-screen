@@ -9,10 +9,12 @@ pkgver=$(date +%y.%m.%d)
 pkgrel=$(date +%H%M)
 arch=('any')
 license=('GPL3')
-url="https://github.com/mathoudebine/turing-smart-screen-python"
+url="https://github.com/biglinux/turing-smart-screen"
+urlgit="https://github.com/mathoudebine/turing-smart-screen-python"
 provides=("$pkgname")
 source=("git+${url}.git")
 md5sums=('SKIP')
+
 if [ -e "${pkgname}.install" ];then
     install=${pkgname}.install
 elif [ -e "pkgbuild.install" ];then
@@ -20,12 +22,6 @@ elif [ -e "pkgbuild.install" ];then
 fi
 
 package() {
-    mkdir -p "${pkgdir}/usr/share/turing-smart-screen/"
-    cp -r "${srcdir}/turing-smart-screen-python/." "${pkgdir}/usr/share/turing-smart-screen/"
-    rm -r "${srcdir}/turing-smart-screen-python/"
-    #rm -r ${pkgdir}/usr/share/turing-smart-screen/.git
-    #rm -r ${pkgdir}/usr/share/turing-smart-screen/.github
-    #rm ${pkgdir}/usr/share/turing-smart-screen/.gitignore
 
     # Verify default folder
     if [ -d "${srcdir}/${pkgname}/${pkgname}" ]; then
@@ -33,19 +29,36 @@ package() {
     else
         InternalDir="${srcdir}/${pkgname}"
     fi
-
-    echo $InternalDir
-
-    # Copy files
+    
     if [ -d "${InternalDir}/usr" ]; then
         cp -r "${InternalDir}/usr" "${pkgdir}/"
-    fi
+    fi    
 
-    if [ -d "${InternalDir}/etc" ]; then
-        cp -r "${InternalDir}/etc" "${pkgdir}/"
-    fi
+    echo ${InternalDir}
+    echo ${srcdir}
+    echo ${pkgname}
+    echo ${pkgdir}    
+    
+    cd "$srcdir"
 
-    if [ -d "${InternalDir}/opt" ]; then
-        cp -r "${InternalDir}/opt" "${pkgdir}/"
-    fi
+    git clone "$urlgit"
+    
+    cp -r "${srcdir}/turing-smart-screen-python/." "${pkgdir}/usr/share/turing-smart-screen/"
+    rm -r "${srcdir}/turing-smart-screen-python/"
+    
+    #mkdir -p "${pkgdir}/usr/share/"
+    #cp -r "${pkgdir}/usr/share/turing-smart-screen-python" "${InternalDir}/usr/share/turing-smart-screen/"
+    #rm -r "${srcdir}/turing-smart-screen-python/"
+    #rm -r ${pkgdir}/usr/share/turing-smart-screen/.git
+    #rm -r ${pkgdir}/usr/share/turing-smart-screen/.github
+    #rm ${pkgdir}/usr/share/turing-smart-screen/.gitignore
+
+
+    
+
+    
+#     cp -r "${srcdir}/turing-smart-screen-python/" "${InternalDir}/usr/share/"    
+#     rm -r "${srcdir}/turing-smart-screen-python/"
+    
+
 }
