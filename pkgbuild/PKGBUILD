@@ -1,10 +1,6 @@
-# Maintainer: Barnabé di Kartola <barnabedikartola@gmail.com>
-
 pkgname=turing-smart-screen
 pkgdesc="Package turing-smart-screen"
 depends=('python-pip' 'python-pillow' 'python-pyserial' 'python-yaml' 'python-psutil' 'python-babel' 'python-ruamel-yaml' 'python-sv-ttk' 'python-numpy' 'python-gputil' 'python-pyamdgpuinfo')
-# makedepends=('')
-# conflicts=('')
 pkgver=$(date +%y.%m.%d)
 pkgrel=$(date +%H%M)
 arch=('any')
@@ -22,7 +18,6 @@ elif [ -e "pkgbuild.install" ];then
 fi
 
 package() {
-
     # Verify default folder
     if [ -d "${srcdir}/${pkgname}/${pkgname}" ]; then
         InternalDir="${srcdir}/${pkgname}/${pkgname}"
@@ -30,6 +25,7 @@ package() {
         InternalDir="${srcdir}/${pkgname}"
     fi
 
+    # Copy files
     if [ -d "${InternalDir}/usr" ]; then
         cp -r "${InternalDir}/usr" "${pkgdir}/"
     fi
@@ -37,7 +33,14 @@ package() {
     cd "$srcdir"
 
     git clone "$urlgit"
-    cp -r "${srcdir}/turing-smart-screen-python/." "${pkgdir}/usr/share/turing-smart-screen/"
-    rm -r "${srcdir}/turing-smart-screen-python/"
 
+    # Copy files to /usr/share/turing-smart-screen/
+    cp -r "${srcdir}/turing-smart-screen-python/." "${pkgdir}/usr/share/turing-smart-screen/"
+
+    # Create directories
+    mkdir -p "${pkgdir}/usr/lib/systemd/system/"
+
+    # Copy systemd service file
+    cp -r "${srcdir}/turing-smart-screen-python/tools/turing-smart-screen-python.service" "${pkgdir}/usr/lib/systemd/system/turing-smart-screen-python.service"
+    chmod +x "${pkgdir}/usr/lib/systemd/system/turing-smart-screen-python.service"
 }
