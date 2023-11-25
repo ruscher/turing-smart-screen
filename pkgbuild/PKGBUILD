@@ -29,36 +29,15 @@ package() {
     else
         InternalDir="${srcdir}/${pkgname}"
     fi
-    
+
     if [ -d "${InternalDir}/usr" ]; then
         cp -r "${InternalDir}/usr" "${pkgdir}/"
-    fi    
+    fi
 
-    echo ${InternalDir}
-    echo ${srcdir}
-    echo ${pkgname}
-    echo ${pkgdir}    
-    
     cd "$srcdir"
 
     git clone "$urlgit"
-    
     cp -r "${srcdir}/turing-smart-screen-python/." "${pkgdir}/usr/share/turing-smart-screen/"
     rm -r "${srcdir}/turing-smart-screen-python/"
-    
-    #mkdir -p "${pkgdir}/usr/share/"
-    #cp -r "${pkgdir}/usr/share/turing-smart-screen-python" "${InternalDir}/usr/share/turing-smart-screen/"
-    #rm -r "${srcdir}/turing-smart-screen-python/"
-    #rm -r ${pkgdir}/usr/share/turing-smart-screen/.git
-    #rm -r ${pkgdir}/usr/share/turing-smart-screen/.github
-    #rm ${pkgdir}/usr/share/turing-smart-screen/.gitignore
-
-
-    
-
-    
-#     cp -r "${srcdir}/turing-smart-screen-python/" "${InternalDir}/usr/share/"    
-#     rm -r "${srcdir}/turing-smart-screen-python/"
-    
 
 }
