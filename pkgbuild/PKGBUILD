@@ -1,6 +1,6 @@
 pkgname=turing-smart-screen
 pkgdesc="Package turing-smart-screen"
-depends=('python-pip' 'python-pillow' 'python-pyserial' 'python-yaml' 'python-psutil' 'python-babel' 'python-ruamel-yaml' 'python-sv-ttk' 'python-numpy' 'python-gputil' 'python-pyamdgpuinfo')
+depends=('tk' 'python-pip' 'python-pillow' 'python-pyserial' 'python-yaml' 'python-psutil' 'python-babel' 'python-ruamel-yaml' 'python-sv-ttk' 'python-numpy' 'python-gputil' 'python-pyamdgpuinfo')
 pkgver=$(date +%y.%m.%d)
 pkgrel=$(date +%H%M)
 arch=('any')
@@ -34,6 +34,7 @@ package() {
 
     # Copy files to /usr/share/turing-smart-screen/
     cp -r "${srcdir}/turing-smart-screen-python/." "${pkgdir}/usr/share/turing-smart-screen/"
+    chmod 777 /usr/share/turing-smart-screen/
 
     # Create directories
     mkdir -p "${pkgdir}/usr/lib/systemd/system/"
