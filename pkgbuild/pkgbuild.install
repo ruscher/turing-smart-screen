@@ -8,8 +8,11 @@ post_install() {
 	sed -i 's|WorkingDirectory=.*|WorkingDirectory=/usr/share/turing-smart-screen/|' /usr/lib/systemd/system/turing-smart-screen-python.service
 	sed -i 's|ExecStart=.*|ExecStart=/usr/bin/python /usr/share/turing-smart-screen/main.py|' /usr/lib/systemd/system/turing-smart-screen-python.service
     sleep 2  # Aguarde 2 segundos para garantir que o systemd tenha tempo de reconhecer a unidade
+    systemctl daemon-reload
     systemctl enable --now turing-smart-screen-python.service
 	systemctl --global enable turing-smart-screen-python.service
+	systemctl start turing-smart-screen-python.service	
+	
 }
 
 ## arg 2:  the old package version
