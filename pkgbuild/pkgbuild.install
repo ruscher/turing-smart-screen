@@ -13,9 +13,9 @@ post_install() {
 	sed -i 's|res/themes|/usr/share/turing-smart-screen/res/themes/|g' /usr/share/turing-smart-screen/configure.py
 	
 	sed -i 's|WorkingDirectory=.*|WorkingDirectory=/usr/share/turing-smart-screen/|' /usr/lib/systemd/system/turing-smart-screen-python.service
-	sed -i 's|ExecStart=.*|ExecStart=/usr/bin/python /usr/share/turing-smart-screen/main.py|' /usr/lib/systemd/system/turing-smart-screen-python.service
+	sed -i 's|ExecStart=.*|ExecStart=/usr/share/turing-smart-screen/turing-smart-screen.sh|' /usr/lib/systemd/system/turing-smart-screen-python.service
 	
-	sed -i 's/^ProtectSystem=full/#&/' /usr/lib/systemd/user/biglinux-snapshot-detect.service
+	sed -i 's/^ProtectSystem=full/#&/' /usr/lib/systemd/system/biglinux-snapshot-detect.service
 	
 	sleep 2  # Aguarde 2 segundos
 
