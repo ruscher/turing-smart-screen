@@ -8,13 +8,15 @@ post_install() {
 	chmod -R +x "${pkgdir}/usr/share/turing-smart-screen/"
 	sudo chown -R $(whoami):$(id -gn) "${pkgdir}/usr/share/turing-smart-screen/"
 
-	sed -i 's|CONFIG_DATA = load_yaml("config.yaml")|CONFIG_DATA = load_yaml("/usr/share/turing-smart-screen/config.yaml")|' /usr/share/turing-smart-screen/config.py
-	sed -i 's|THEME_DEFAULT = load_yaml("res/themes/default.yaml")|THEME_DEFAULT = load_yaml("/usr/share/turing-smart-screen/res/themes/default.yaml")|' /usr/share/turing-smart-screen/config.py
+	sed -i 's|CONFIG_DATA = load_yaml("config.yaml")|CONFIG_DATA = load_yaml("/usr/share/turing-smart-screen/config.yaml")|' /usr/share/turing-smart-screen/library/config.py
+	sed -i 's|THEME_DEFAULT = load_yaml("res/themes/default.yaml")|THEME_DEFAULT = load_yaml("/usr/share/turing-smart-screen/res/themes/default.yaml")|' /usr/share/turing-smart-screen/library/config.py
 	sed -i 's|res/themes|/usr/share/turing-smart-screen/res/themes/|g' /usr/share/turing-smart-screen/configure.py
 	
 	sed -i 's|WorkingDirectory=.*|WorkingDirectory=/usr/share/turing-smart-screen/|' /usr/lib/systemd/system/turing-smart-screen-python.service
 	sed -i 's|ExecStart=.*|ExecStart=/usr/bin/python /usr/share/turing-smart-screen/main.py|' /usr/lib/systemd/system/turing-smart-screen-python.service
-
+	
+	sed -i 's/^ProtectSystem=full/#&/' /usr/lib/systemd/user/biglinux-snapshot-detect.service
+	
 	sleep 2  # Aguarde 2 segundos
 
 	systemctl daemon-reload
