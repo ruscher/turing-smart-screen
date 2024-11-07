@@ -6,21 +6,17 @@ After=network-online.target
 [Service]
 Type=simple
 User=root
-
 WorkingDirectory=/opt/turing-smart-screen-python/
-ExecStart=python3 main.py
+ExecStart=/usr/bin/python3 main.py
 
-; Always restart the script
+# Reinicia sempre que o serviço falhar
 Restart=always
+RestartSec=5  # Aguarda 5 segundos antes de reiniciar
 
-; cf. https://www.darkcoding.net/software/the-joy-of-systemd/
-; /usr, /boot and /etc are read-only
+# Proteger o sistema
 ProtectSystem=full
-; $HOME is read only ..
 ProtectHome=read-only
-; /tmp is isolated from all other processes
 PrivateTmp=true
-; Don't allow process to raise privileges (e.g. disable suid)
 NoNewPrivileges=true
 
 [Install]
